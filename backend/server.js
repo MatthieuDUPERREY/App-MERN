@@ -9,12 +9,13 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors,{
-  origin: "http//:localhost:5050",
-  credentials: true,
-  optionsSucessStatus: 200,
-
-});
+app.use(
+  cors({
+    origin: "http//:localhost:5050",
+    credentials: true,
+    optionsSucessStatus: 200,
+  })
+);
 
 app.use("/post", require("./routes/post.routes"));
 
