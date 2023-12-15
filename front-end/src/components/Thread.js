@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import Post from "./Post";
 const Thread = ({ userId }) => {
   const [posts, setPosts] = useState([]);
 
@@ -11,7 +11,7 @@ const Thread = ({ userId }) => {
   return (
     <div className="thread-container">
       {posts.map((post) => (
-        <li>{post.message}</li>
+        <Post key={post._id} post={post} userId={userId} />
       ))}
     </div>
   );
