@@ -7,6 +7,7 @@ const {
   likePost,
   dislikePost,
 } = require("../controllers/post.controllers.js");
+
 const router = express.Router();
 
 router.get("/", getPosts);
