@@ -18,6 +18,7 @@ const Post = ({ post, userId }) => {
           <h3>{post.author}</h3>
           <p>posté le {dateFormater(post.createdAt)}</p>
         </div>
+        <p>{post.message}</p>
       </div>
     </div>
   );
