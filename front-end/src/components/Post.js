@@ -1,10 +1,24 @@
 import React from "react";
 
-const Post = (post, userId) => {
-  console.log(post, userId);
+const Post = ({ post, userId }) => {
+  const dateFormater = (date) => {
+    return new Date(date).toLocaleDateString("fr-Fr", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    });
+  };
   return (
     <div>
-      <h1>Post</h1>
+      <div className="card">
+        <div className="card-header">
+          <h3>{post.author}</h3>
+          <p>posté le {dateFormater(post.createdAt)}</p>
+        </div>
+      </div>
     </div>
   );
 };
