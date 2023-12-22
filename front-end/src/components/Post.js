@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import LikePost from "./LikePost";
-import DeletePost from "./DeletePost";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import DeletePost from "./DeletePost";
+import LikePost from "./LikePost";
+
 const Post = ({ post, userId }) => {
   const [isAuthor, setIsAuthor] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [newMessage, setNewMessage] = useState("");
-  const handleEdit = () => {
-    if (newMessage) {
-      axios.put("http://localhost:5030/post/" + post._id, {
-        message: newMessage,
-      });
-    }
-  };
 
   useEffect(() => {
     if (post.author === userId) {
@@ -22,8 +16,16 @@ const Post = ({ post, userId }) => {
     }
   }, [userId]);
 
+  const handleEdit = () => {
+    if (newMessage) {
+      axios.put("http://localhost:5600/post/" + post._id, {
+        message: newMessage,
+      });
+    }
+  };
+
   const dateFormater = (date) => {
-    return new Date(date).toLocaleDateString("fr-Fr", {
+    return new Date(date).toLocaleDateString("fr-FR", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -32,49 +34,47 @@ const Post = ({ post, userId }) => {
       second: "numeric",
     });
   };
+
   return (
-    <div>
-      <div className="card">
-        <div className="card-header">
-          <h3>{post.author}</h3>
-          <p>posté le {dateFormater(post.createdAt)}</p>
+    <div className="card">
+      <div className="card-header">
+        <h3>{post.author}</h3>
+        <p>posté le {dateFormater(post.createdAt)}</p>
+      </div>
+      {isEdit ? (
+        <div className="edit-container">
+          <textarea
+            defaultValue={newMessage ? newMessage : post.message}
+            onChange={(e) => setNewMessage(e.target.value)}
+          ></textarea>
+          <button
+            onClick={() => {
+              handleEdit();
+              setIsEdit(false);
+            }}
+          >
+            Valider édition
+          </button>
         </div>
-        {isEdit ? (
-          <div className="edit-container">
-            <textarea
-              defaultValue="{post.message}"
-              onChange={(e) => setNewMessage(e.target.value)}
-            ></textarea>
-            <button
+      ) : (
+        <p>{newMessage ? newMessage : post.message}</p>
+      )}
+      <div className="icons-part">
+        <LikePost post={post} userId={userId} />
+        {isAuthor && (
+          <div className="update-delete-icons">
+            <span
+              id="update-btn"
               onClick={() => {
-                setIsEdit(false);
                 handleEdit();
+                setIsEdit(!isEdit);
               }}
             >
-              Valider edition
-            </button>
+              &#10000;
+            </span>
+            <DeletePost postId={post._id} />
           </div>
-        ) : (
-          <p>{newMessage ? newMessage : post.message}</p>
         )}
-
-        <div className="icons-part">
-          <LikePost post={post} userId={userId} />
-          {isAuthor && (
-            <div className="update-delete-icons">
-              <span
-                id="update-btn"
-                onClick={() => {
-                  setIsEdit(!isEdit);
-                  handleEdit();
-                }}
-              >
-                &#10000;
-              </span>
-            </div>
-          )}
-          <DeletePost post={post._id} />
-        </div>
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
+
 const DeletePost = ({ postId }) => {
   const handleDelete = () => {
-    axios.delete("http://localhost:5030/post/" + postId);
+    axios.delete("http://localhost:5600/post/" + postId);
   };
 
   return (
