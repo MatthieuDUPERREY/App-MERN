@@ -15,13 +15,13 @@ const Like = ({ post, userId }) => {
   }, [userId]);
 
   const likePost = () => {
-    axios.patch("http://localhost:5030/post/like-post/" + post._id, {
+    axios.patch("http://localhost:5600/post/like-post/" + post._id, {
       userId,
     });
     setUserLiked(true);
   };
   const dislikePost = () => {
-    axios.patch("http://localhost:5030/post/dislike-post/" + post._id, {
+    axios.patch("http://localhost:5600/post/dislike-post/" + post._id, {
       userId,
     });
     setUserLiked(false);

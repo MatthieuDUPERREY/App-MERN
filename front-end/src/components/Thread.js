@@ -5,7 +5,7 @@ const Thread = ({ userId }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5030/post/").then((res) => setPosts(res.data));
+    axios.get("http://localhost:5600/post/").then((res) => setPosts(res.data));
   }, []);
 
   return (

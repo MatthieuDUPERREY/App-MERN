@@ -32,7 +32,7 @@ module.exports.deletePost = async (req, res) => {
   if (!post) {
     res.status(400).json({ message: "Ce post n'existe pas" });
   }
-  await post.remove();
+  await post.deleteOne();
   res.status(200).json(post);
 };
 

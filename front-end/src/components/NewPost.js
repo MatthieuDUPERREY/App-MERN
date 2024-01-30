@@ -7,7 +7,7 @@ const NewPost = ({ userId }) => {
   const handleForm = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:5030/post/", {
+    axios.post("http://localhost:5600/post/", {
       message,
       author: userId,
     });
