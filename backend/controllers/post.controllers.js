@@ -16,15 +16,36 @@ module.exports.setPosts = async (req, res) => {
   res.status(200).json(post);
 };
 
+// module.exports.editPost = async (req, res) => {
+//   const post = await PostModel.findById(req.params.id);
+//   if (!post) {
+//     res.status(400).json({ message: "Ce post n'existe pas" });
+//   }
+//   const updatePost = await PostModel.findByIdAndUpdate(post, req.body, {
+//     new: true,
+//   });
+//   res.status(200).json(updatePost);
+// };
 module.exports.editPost = async (req, res) => {
-  const post = await PostModel.findById(req.params.id);
-  if (!post) {
-    res.status(400).json({ message: "Ce post n'existe pas" });
+  try {
+    const post = await PostModel.findById(req.params.id);
+
+    if (!post) {
+      return res.status(400).json({ message: "Ce post n'existe pas" });
+    }
+
+    const updatePost = await PostModel.findByIdAndUpdate(
+      req.params.id, // Utilisez l'ID directement ici
+      req.body,
+      { new: true }
+    );
+
+    res.status(200).json(updatePost);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la modification du post", error });
   }
-  const updatePost = await PostModel.findByIdAndUpdate(post, req.body, {
-    new: true,
-  });
-  res.status(200).json(updatePost);
 };
 
 module.exports.deletePost = async (req, res) => {

@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DeletePost from "./DeletePost";
 import LikePost from "./LikePost";
+import { useSelector } from "react-redux";
 
-const Post = ({ post, userId }) => {
+const Post = ({ post }) => {
   const [isAuthor, setIsAuthor] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [newMessage, setNewMessage] = useState("");
+  const userId = useSelector((state) => state.user.userId);
 
   useEffect(() => {
     if (post.author === userId) {
@@ -18,7 +20,7 @@ const Post = ({ post, userId }) => {
 
   const handleEdit = () => {
     if (newMessage) {
-      axios.put("http://localhost:5600/post/" + post._id, {
+      axios.put("http://localhost:5700/post/" + post._id, {
         message: newMessage,
       });
     }

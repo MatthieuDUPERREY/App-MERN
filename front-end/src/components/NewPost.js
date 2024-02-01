@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-const NewPost = ({ userId }) => {
+const NewPost = () => {
   const [message, setMessage] = useState("");
-
+  const userId = useSelector((state) => state.user.userId);
   const handleForm = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:5600/post/", {
+    axios.post("http://localhost:5700/post/", {
       message,
       author: userId,
     });
