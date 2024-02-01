@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Post from "./Post";
-const Thread = ({ userId }) => {
+const Thread = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5600/post/").then((res) => setPosts(res.data));
+    axios.get("http://localhost:5700/post/").then((res) => setPosts(res.data));
   }, []);
 
   return (
@@ -13,7 +13,7 @@ const Thread = ({ userId }) => {
       {posts
         .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
         .map((post) => (
-          <Post key={post._id} post={post} userId={userId} />
+          <Post key={post._id} post={post} />
         ))}
     </div>
   );
