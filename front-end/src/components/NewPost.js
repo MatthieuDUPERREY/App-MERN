@@ -11,6 +11,7 @@ const NewPost = () => {
     const data = {
       message,
       author: userId,
+      _id: Date.now(),
     };
 
     axios.post("http://localhost:5700/post/", data).then(() => {
